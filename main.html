@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>વેદ મોબાઇલ - Mobile Repairing Services</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            z-index: 1001;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: all 0.3s;
+            border-radius: 3px;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1.2s;
+        }
+
+        .cta-button {
+            background: white;
+            color: #667eea;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 1.4s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #667eea;
+        }
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .service-card {
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(102,126,234,0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .service-card:hover::before {
+            left: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(102,126,234,0.4);
+            border: 2px solid #667eea;
+            background: linear-gradient(145deg, #ffffff, #f8f9ff);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            transition: all 0.4s ease;
+            display: inline-block;
+        }
+
+        .service-card:hover .service-icon {
+            transform: rotateY(360deg) scale(1.2);
+            filter: drop-shadow(0 0 10px rgba(102,126,234,0.6));
+        }
+
+        .service-card h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover h3 {
+            color: #764ba2;
+            transform: scale(1.05);
+        }
+
+        .service-card p {
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover p {
+            color: #555;
+            transform: scale(1.02);
+        }
+
+        .features {
+            background: #f8f9fa;
+            padding: 3rem 2rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 1.5rem;
+            transition: all 0.4s ease;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .feature-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.4s ease;
+        }
+
+        .feature-item:hover::after {
+            width: 80%;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-10px);
+            background: white;
+            box-shadow: 0 10px 25px rgba(102,126,234,0.2);
+        }
+
+        .feature-item h4 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .contact {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.4s ease;
+            padding: 1rem;
+            border-radius: 10px;
+        }
+
+        .contact-item:hover {
+            transform: scale(1.1);
+            background: rgba(255,255,255,0.1);
+        }
+
+        .contact-item-icon {
+            font-size: 2rem;
+            transition: all 0.4s ease;
+        }
+
+        .contact-item:hover .contact-item-icon {
+            transform: rotateZ(360deg) scale(1.3);
+        }
+
+        footer {
+            background: #2d3748;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 70%;
+                max-width: 300px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                transition: right 0.4s ease;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+                z-index: 1000;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                font-size: 1.2rem;
+                padding: 1rem 2rem;
+                width: 80%;
+                text-align: center;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .contact-info {
+                gap: 1.5rem;
+            }
+
+            nav {
+                padding: 0 1rem;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">📱 વેદ મોબાઇલ</div>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" onclick="closeMenu()">Home</a></li>
+                <li><a href="#services" onclick="closeMenu()">Services</a></li>
+                <li><a href="#features" onclick="closeMenu()">Features</a></li>
+                <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <h1>વેદ મોબાઇલ</h1>
+        <p>તમારા મોબાઇલની તમામ સમસ્યાનું ઝડપી અને વિશ્વસનીય સમાધાન</p>
+        <p>Fast & Reliable Mobile Repairing Services</p>
+        <button class="cta-button" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
+            Contact Us Now
+        </button>
+    </section>
+
+    <div class="container" id="services">
+        <h2 class="section-title">અમારી સેવાઓ / Our Services</h2>
+        <div class="services">
+            <div class="service-card">
+                <div class="service-icon">🔧</div>
+                <h3>સ્ક્રીન રિપેર</h3>
+                <h3>Screen Repair</h3>
+                <p>તૂટેલી અથવા ક્ષતિગ્રસ્ત સ્ક્રીનની રિપેરિંગ તથા રિપ્લેસમેન્ટ</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🔋</div>
+                <h3>બેટરી રિપ્લેસમેન્ટ</h3>
+                <h3>Battery Replacement</h3>
+                <p>તમામ પ્રકારના મોબાઇલ માટે ઓરિજિનલ બેટરી રિપ્લેસમેન્ટ</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">💧</div>
+                <h3>વોટર ડેમેજ રિપેર</h3>
+                <h3>Water Damage Repair</h3>
+                <p>પાણીથી થયેલા નુકસાનની વિશેષજ્ઞતા સાથે રિપેરિંગ</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">💻</div>
+                <h3>સોફ્ટવેર અપડેટ</h3>
+                <h3>Software Update</h3>
+                <p>OS અપડેટ, વાયરસ રિમૂવલ અને ડેટા રિકવરી</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🔌</div>
+                <h3>ચાર્જિંગ પોર્ટ રિપેર</h3>
+                <h3>Charging Port Repair</h3>
+                <p>ચાર્જિંગ પોર્ટ અને કનેક્ટર સમસ્યાઓનું સમાધાન</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📷</div>
+                <h3>કેમેરા રિપેર</h3>
+                <h3>Camera Repair</h3>
+                <p>ફ્રન્ટ અને બેક કેમેરા રિપેરિંગ અને રિપ્લેસમેન્ટ</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="features" id="features">
+        <h2 class="section-title">શા માટે અમને પસંદ કરો? / Why Choose Us?</h2>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <h4>⚡ ઝડપી સેવા</h4>
+                <p>મોટાભાગની રિપેર 1-2 કલાકમાં પૂર્ણ થાય છે</p>
+            </div>
+            <div class="feature-item">
+                <h4>✅ ગુણવત્તાની ગેરંટી</h4>
+                <p>તમામ રિપેર પર 6 મહિનાની વોરંટી</p>
+            </div>
+            <div class="feature-item">
+                <h4>💰 વાજબી કિંમત</h4>
+                <p>માર્કેટમાં શ્રેષ્ઠ કિંમત અને ડિસ્કાઉન્ટ</p>
+            </div>
+            <div class="feature-item">
+                <h4>👨‍🔧 અનુભવી ટેકનિશિયન</h4>
+                <p>10+ વર્ષનો અનુભવ ધરાવતા નિષ્ણાતો</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <h2 class="section-title" style="color: white;">સંપર્ક કરો / Contact Us</h2>
+        <div class="contact-info">
+            <div class="contact-item">
+                <div class="contact-item-icon">📞</div>
+                <h4>ફોન / Phone</h4>
+                <p>+91 91065 27118</p>
+            </div>
+            <div class="contact-item">
+                <div class="contact-item-icon">📧</div>
+                <h4>ઈમેલ / Email</h4>
+                <p>tirgaryogesh12@gmail.com</p>
+            </div>
+            <div class="contact-item">
+                <div class="contact-item-icon">📍</div>
+                <h4>સરનામું / Address</h4>
+                <p>Mehtapura ,hmt</p>
+            </div>
+            <div class="contact-item">
+                <div class="contact-item-icon">⏰</div>
+                <h4>સમય / Timing</h4>
+                <p>સવારે 9 થી રાત્રે 9 વાગ્યા</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 વેદ મોબાઇલ (Ved Mobile). All rights reserved.</p>
+        <p>તમારા મોબાઇલની સંભાળ, અમારી જવાબદારી</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const menuToggle = document.querySelector('.menu-toggle');
+            navLinks.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const menuToggle = document.querySelector('.menu-toggle');
+            navLinks.classList.remove('active');
+            menuToggle.classList.remove('active');
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('nav');
+            const navLinks = document.getElementById('navLinks');
+            const menuToggle = document.querySelector('.menu-toggle');
+            
+            if (!nav.contains(event.target) && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                menuToggle.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
